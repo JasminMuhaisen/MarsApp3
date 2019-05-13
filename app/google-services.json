@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "46494466949",
+    "firebase_url": "https://mars-b3148.firebaseio.com",
+    "project_id": "mars-b3148",
+    "storage_bucket": "mars-b3148.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46494466949:android:335b57f7202aacb7",
+        "android_client_info": {
+          "package_name": "com.example.marsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46494466949-vpg700f4ievgu51b1ilcdih5g1ll0icq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.marsapp",
+            "certificate_hash": "6a438f379ec41a6a2bd5378c7cbdaeb8eb0e8392"
+          }
+        },
+        {
+          "client_id": "46494466949-89thr29ksodifks4lrc37clbqcg167qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKzRqy4gGiadTDveuLrV7e7e_r6MKgfn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46494466949-89thr29ksodifks4lrc37clbqcg167qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

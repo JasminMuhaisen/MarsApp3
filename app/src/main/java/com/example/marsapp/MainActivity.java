@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_Logout:
+            case R.id.nav_logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;

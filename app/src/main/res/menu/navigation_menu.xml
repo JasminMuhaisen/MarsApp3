@@ -18,17 +18,17 @@
         android:icon="@drawable/home"/>
 
     <item
-        android:id="@+id/nav_freinds"
+        android:id="@+id/nav_friends"
         android:title="Freinds"
         android:icon="@drawable/friends"/>
 
     <item
-        android:id="@+id/nav_find_freinds"
+        android:id="@+id/nav_find_friends"
         android:title="Find Freinds"
         android:icon="@drawable/find_people"/>
 
     <item
-        android:id="@+id/masseges"
+        android:id="@+id/nav_messages"
         android:title="Masseges"
         android:icon="@drawable/messages"/>
 

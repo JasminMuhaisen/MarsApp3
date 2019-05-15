@@ -2,6 +2,7 @@ package com.example.marsapp;
 
 
 import android.app.ProgressDialog;
+import com.squareup.picasso.Picasso;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -95,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String myRelationStatus = dataSnapshot.child("relationshipstatus").getValue().toString();
 
 
-                picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                Picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
 
                 userName.setText(myUserName);
                 userProfName.setText(myProfileName);

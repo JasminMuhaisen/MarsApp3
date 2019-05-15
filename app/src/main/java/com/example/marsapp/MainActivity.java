@@ -68,10 +68,10 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Home");
 
 
-        AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
+        AddNewPostButton =  findViewById(R.id.add_new_post_button);
 
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+        drawerLayout =  findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -338,6 +338,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_find_friends:
+                sendUserToFindfriendsActivity();
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -358,9 +359,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void sendUserToFindfriendsActivity() {
+        Intent findfrindsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
+        startActivity(findfrindsIntent);
+    }
+
     private void SendUserToSettingsActivity()
     {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
     }
+
 }
+

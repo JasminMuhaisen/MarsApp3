@@ -31,8 +31,9 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity
+{
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference UsersRef, PostsRef;
 
     String currentUserID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -158,12 +160,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void populateViewHolder(PostsViewHolder viewHolder, Posts model, int position)
                     {
+                        final String PostKey = getRef(position).getKey();
+
+
                         viewHolder.setFullname(model.getFullname());
                         viewHolder.setTime(model.getTime());
                         viewHolder.setDate(model.getDate());
                         viewHolder.setDescription(model.getDescription());
                         viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+                        viewHolder.mView.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v)
+                            {
+                                Intent clickPostIntent = new Intent(MainActivity.this,ClickPostActivity.class);
+                                clickPostIntent.putExtra("postKey",PostKey);
+                                startActivity(clickPostIntent);
+                            }
+                        });
                     }
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
@@ -332,13 +346,21 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_settings:
+                SendUserToSettingsActivity();
+
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_logout:
+            case R.id.nav_Logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
         }
+    }
+
+    private void SendUserToSettingsActivity()
+    {
+        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(loginIntent);
     }
 }

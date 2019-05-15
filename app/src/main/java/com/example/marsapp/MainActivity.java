@@ -361,6 +361,6 @@ public class MainActivity extends AppCompatActivity
     private void SendUserToSettingsActivity()
     {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(loginIntent);
+        startActivity(settingsIntent);
     }
 }

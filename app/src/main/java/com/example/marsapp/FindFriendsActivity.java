@@ -37,13 +37,13 @@ public class FindFriendsActivity extends AppCompatActivity {
 
         allUsersDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        mToolbar = findViewById(R.id.find_friends_aapbar_layout);
+        mToolbar = findViewById(R.id.find_friends_appbar_layout);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Find Friends");
 
 
-        searchResultList = findViewById(R.id.serch_result_list);
+        searchResultList = findViewById(R.id.search_result_list);
         searchResultList.setHasFixedSize(true);
         searchResultList.setLayoutManager(new LinearLayoutManager(this));
 

@@ -55,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_setting);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -77,9 +77,9 @@ public class SettingsActivity extends AppCompatActivity {
         userGender = findViewById(R.id.settings_gender);
         userRelation = findViewById(R.id.settings_relationship_status);
         userDOB = findViewById(R.id.settings_dob);
-        userProfImage = findViewById(R.id.settings_profile_image);
+        userProfImage = findViewById(R.id.settings_profile_pic);
         loadingBar = new ProgressDialog(this);
-        UpdateAccountSettingsButton = findViewById(R.id.update_account_settiings_buttons);
+        UpdateAccountSettingsButton = findViewById(R.id.update_account_settings_buttons);
         settingsuserRef.addValueEventListener(new ValueEventListener()
         {
             @Override

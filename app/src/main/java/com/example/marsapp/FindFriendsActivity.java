@@ -84,6 +84,12 @@ public class FindFriendsActivity extends AppCompatActivity {
                 viewHolder.setStatus(model.getStatus());
                 viewHolder.setProfileimage(getApplicationContext(),model.getProfileimage());
 
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
 
 
             }

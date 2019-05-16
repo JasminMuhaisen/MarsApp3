@@ -77,5 +77,4 @@
         android:text="save"
         android:textColor="#FCF2F2"
         android:textSize="20sp" />
-
 </RelativeLayout>

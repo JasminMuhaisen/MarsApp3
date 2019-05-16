@@ -86,25 +86,25 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange (DataSnapshot dataSnapshot)
             {
                 if(dataSnapshot.exists()){
-                String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
-                String myUserName = dataSnapshot.child("username").getValue().toString();
-                String myProfileName = dataSnapshot.child("fullname").getValue().toString();
-                String myProfileStatus = dataSnapshot.child("status").getValue().toString();
-                String myDOB = dataSnapshot.child("dob").getValue().toString();
-                String myCountry = dataSnapshot.child("country").getValue().toString();
-                String myGender = dataSnapshot.child("gender").getValue().toString();
-                String myRelationStatus = dataSnapshot.child("relationshipstatus").getValue().toString();
+                    String myProfileImage = dataSnapshot.child("profileimage").getValue().toString();
+                    String myUserName = dataSnapshot.child("username").getValue().toString();
+                    String myProfileName = dataSnapshot.child("fullname").getValue().toString();
+                    String myProfileStatus = dataSnapshot.child("status").getValue().toString();
+                    String myDOB = dataSnapshot.child("dob").getValue().toString();
+                    String myCountry = dataSnapshot.child("country").getValue().toString();
+                    String myGender = dataSnapshot.child("gender").getValue().toString();
+                    String myRelationStatus = dataSnapshot.child("relationshipstatus").getValue().toString();
 
 
-                Picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
+                    Picasso.with(SettingsActivity.this).load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
 
-                userName.setText(myUserName);
-                userProfName.setText(myProfileName);
-                userStatus.setText(myProfileStatus);
-                userDOB.setText(myDOB);
-                userCountry.setText(myCountry);
-                userGender.setText(myGender);
-                userRelation.setText(myRelationStatus);
+                    userName.setText(myUserName);
+                    userProfName.setText(myProfileName);
+                    userStatus.setText(myProfileStatus);
+                    userDOB.setText(myDOB);
+                    userCountry.setText(myCountry);
+                    userGender.setText(myGender);
+                    userRelation.setText(myRelationStatus);
                 }
 
             }
@@ -260,30 +260,30 @@ public class SettingsActivity extends AppCompatActivity {
     private void UpdateAccountInfo(String username, String profilename, String status, String dob, String country, String gender, String relation) {
 
         HashMap userMap = new HashMap();
-            userMap.put("username",username);
-            userMap.put("fullname",profilename);
-            userMap.put("status",status);
-            userMap.put("dob",dob);
-            userMap.put("country",country);
-            userMap.put("gender",gender);
-            userMap.put("relationshipstatus",relation);
-            settingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task)
-                {
-                    if (task.isSuccessful()){
-                        SendUserToMainActivity();
-                        Toast.makeText(SettingsActivity.this,"Account stettings updated successfully",Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
-                    }
-                    else
-                        {
-                        Toast.makeText(SettingsActivity.this,"Error ocured,while updating account setting info...",Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
-
-                        }
+        userMap.put("username",username);
+        userMap.put("fullname",profilename);
+        userMap.put("status",status);
+        userMap.put("dob",dob);
+        userMap.put("country",country);
+        userMap.put("gender",gender);
+        userMap.put("relationshipstatus",relation);
+        settingsuserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task)
+            {
+                if (task.isSuccessful()){
+                    SendUserToMainActivity();
+                    Toast.makeText(SettingsActivity.this,"Account stettings updated successfully",Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
                 }
-            });
+                else
+                {
+                    Toast.makeText(SettingsActivity.this,"Error ocured,while updating account setting info...",Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+
+                }
+            }
+        });
     }
 
     private void SendUserToMainActivity()

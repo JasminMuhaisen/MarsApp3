@@ -1,11 +1,10 @@
 package com.example.marsapp;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +13,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +36,7 @@ public class LoginActivity extends AppCompatActivity
     private Button LoginButton;
     private ImageView googleSignInButton;
     private EditText UserEmail, UserPassword;
-    private TextView NeedNewAccountLink, ForgetPasswordLink;
+    private TextView NeedNewAccountLink;
     private ProgressDialog loadingBar;
 
     private FirebaseAuth mAuth;
@@ -53,12 +56,11 @@ public class LoginActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
 
 
-        NeedNewAccountLink =  findViewById(R.id.register_account_link);
-        UserEmail =  findViewById(R.id.login_email);
-        UserPassword = findViewById(R.id.login_password);
-        LoginButton =  findViewById(R.id.login_button);
-        ForgetPasswordLink = findViewById(R.id.forget_password_link);
-        googleSignInButton =  findViewById(R.id.google_signin_button);
+        NeedNewAccountLink = (TextView) findViewById(R.id.register_account_link);
+        UserEmail = (EditText) findViewById(R.id.login_email);
+        UserPassword = (EditText) findViewById(R.id.login_password);
+        LoginButton = (Button) findViewById(R.id.login_button);
+        googleSignInButton = (ImageView) findViewById(R.id.google_signin_button);
         loadingBar = new ProgressDialog(this);
 
 
@@ -67,13 +69,6 @@ public class LoginActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 SendUserToRegisterActivity();
-            }
-        });
-
-        ForgetPasswordLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this , ResetPasswordActivity.class));
             }
         });
 

@@ -167,26 +167,26 @@ public class CommentsActivity extends AppCompatActivity {
             final String RandomKey = current_user_id + saveCurrentDate + saveCurrentTime ;
 
             HashMap commentsMap = new HashMap();
-                commentsMap.put("uid",current_user_id);
-                commentsMap.put("comment",commentText);
-                commentsMap.put("date",saveCurrentDate);
-                commentsMap.put("time",saveCurrentTime);
-                commentsMap.put("username",userName);
+            commentsMap.put("uid",current_user_id);
+            commentsMap.put("comment",commentText);
+            commentsMap.put("date",saveCurrentDate);
+            commentsMap.put("time",saveCurrentTime);
+            commentsMap.put("username",userName);
 
 
             PostRef.child(RandomKey).updateChildren(commentsMap)
-            .addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(CommentsActivity.this,"you have Commented successfully...",Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(CommentsActivity.this,"Error Occured, try again...",Toast.LENGTH_SHORT).show();
+                    .addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(CommentsActivity.this,"you have Commented successfully...",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(CommentsActivity.this,"Error Occured, try again...",Toast.LENGTH_SHORT).show();
 
-                    }
-                }
-            });
+                            }
+                        }
+                    });
 
 
 

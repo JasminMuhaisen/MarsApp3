@@ -37,7 +37,7 @@ public class FindFriendsActivity extends AppCompatActivity {
 
         allUsersDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        mToolbar = (Toolbar) findViewById(R.id.find_friends_aapbar_layout);
+        mToolbar = findViewById(R.id.find_friends_aapbar_layout);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Find Friends");

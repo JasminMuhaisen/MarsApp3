@@ -34,7 +34,7 @@ public class PersonProfileActivity extends AppCompatActivity {
         userDOB = findViewById(R.id.person_dob);
         userProfileImage = findViewById(R.id.person_profile_pic);
         SendFriendReqButton = findViewById(R.id.person_send_friend_request_btn);
-        DeclineFriendReqButton = findViewById(R.id.person_decline_friend_request)
+        DeclineFriendReqButton = findViewById(R.id.person_decline_friend_request);
 
 
     }

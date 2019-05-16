@@ -8,8 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".CommentsActivity"></activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".PersonProfileActivity"></activity>
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".CommentsActivity" />
         <activity
             android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity" />

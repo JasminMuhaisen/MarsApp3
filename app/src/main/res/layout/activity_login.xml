@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_password"
         android:layout_centerHorizontal="true"
@@ -95,6 +95,7 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/limage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView2"
@@ -125,5 +126,21 @@
             android:src="@drawable/google" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/forget_password_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/limage"
+        android:text="Forget Password?"
+        android:layout_marginTop="7dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+
+
+
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

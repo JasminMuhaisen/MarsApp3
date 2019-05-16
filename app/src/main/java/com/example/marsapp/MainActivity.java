@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,9 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity
+{
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -44,9 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton AddNewPostButton;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference UsersRef, PostsRef;
+    private DatabaseReference UsersRef, PostsRef, LikesRef;
 
     String currentUserID;
+    Boolean LikeChecker = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
-
+        LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Home");
 
 
-        AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
+        AddNewPostButton =  findViewById(R.id.add_new_post_button);
 
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+        drawerLayout =  findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -158,12 +162,69 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected void populateViewHolder(PostsViewHolder viewHolder, Posts model, int position)
                     {
+                        final String PostKey = getRef(position).getKey();
+
+
                         viewHolder.setFullname(model.getFullname());
                         viewHolder.setTime(model.getTime());
                         viewHolder.setDate(model.getDate());
                         viewHolder.setDescription(model.getDescription());
                         viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+                        viewHolder.setLikeButtonStatus(PostKey);
+
+                        viewHolder.mView.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v)
+                            {
+
+                                Intent clickPostIntent = new Intent(MainActivity.this,ClickPostActivity.class);
+                                clickPostIntent.putExtra("postKey",PostKey);
+                                startActivity(clickPostIntent);
+                            }
+                        });
+
+                        viewHolder.commentPostButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent CommentIntent = new Intent(MainActivity.this,CommentsActivity.class);
+                                CommentIntent.putExtra("postKey",PostKey);
+                                startActivity(CommentIntent);
+
+                            }
+                        });
+
+                        viewHolder.LikepostButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                LikeChecker = true;
+                                LikesRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(LikeChecker.equals(true)){
+
+                                            if(dataSnapshot.child(PostKey).hasChild(currentUserID))
+                                            {
+                                                LikesRef.child(PostKey).child(currentUserID).removeValue();
+                                                LikeChecker = false;
+
+                                            }
+                                            else
+                                            {
+                                                LikesRef.child(PostKey).child(currentUserID).setValue(true);
+                                                LikeChecker = false;
+
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        });
                     }
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
@@ -175,10 +236,48 @@ public class MainActivity extends AppCompatActivity {
     {
         View mView;
 
+        ImageButton LikepostButton , commentPostButton;
+        TextView DisplayNoOfLikes;
+        int countLike;
+        String currentUserId;
+        DatabaseReference LikesRef;
+
         public PostsViewHolder(View itemView)
         {
             super(itemView);
             mView = itemView;
+
+            LikepostButton = mView.findViewById(R.id.like_button);
+            commentPostButton = mView.findViewById(R.id.comment_button);
+            DisplayNoOfLikes = mView.findViewById(R.id.display_no_of_likes);
+
+            LikesRef = FirebaseDatabase.getInstance().getReference().child("Like");
+            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        }
+        public void setLikeButtonStatus(final String PostKey) {
+
+            LikesRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(PostKey).hasChild(currentUserId)){
+                        countLike = (int) dataSnapshot.child(PostKey).getChildrenCount();
+                        LikepostButton.setImageResource(R.drawable.like);
+                        DisplayNoOfLikes.setText(Integer.toString(countLike)+ "Likes");
+                    }
+                    else
+                    {
+                        countLike = (int) dataSnapshot.child(PostKey).getChildrenCount();
+                        LikepostButton.setImageResource(R.drawable.dislike);
+                        DisplayNoOfLikes.setText(Integer.toString(countLike)+ "Likes");
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
         public void setFullname(String fullname)
@@ -216,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView PostImage = (ImageView) mView.findViewById(R.id.post_image);
             Picasso.with(ctx1).load(postimage).into(PostImage);
         }
+
     }
 
 
@@ -324,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_find_friends:
+                sendUserToFindfriendsActivity();
                 Toast.makeText(this, "Find Friends", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -332,13 +433,28 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_settings:
+                SendUserToSettingsActivity();
+
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_logout:
+            case R.id.nav_Logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
         }
     }
+
+    private void sendUserToFindfriendsActivity() {
+        Intent findfrindsIntent = new Intent(MainActivity.this, FindFriendsActivity.class);
+        startActivity(findfrindsIntent);
+    }
+
+    private void SendUserToSettingsActivity()
+    {
+        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(settingsIntent);
+    }
+
 }
+

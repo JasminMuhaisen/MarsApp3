@@ -36,7 +36,7 @@ public class FriendsActivity extends AppCompatActivity {
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends").child(online_user_id);
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        myFriendList = (RecyclerView) findViewById(R.id.friend_list);
+        myFriendList = findViewById(R.id.friend_list);
         myFriendList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);

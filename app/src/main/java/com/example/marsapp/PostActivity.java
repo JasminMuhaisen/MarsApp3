@@ -257,3 +257,4 @@ public class PostActivity extends AppCompatActivity
         startActivity(mainIntent);
     }
 }
+

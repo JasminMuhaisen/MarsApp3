@@ -8,65 +8,74 @@
     tools:context=".SetupActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setup_profile_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="25dp"
         android:src="@drawable/profile" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/setup_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/username"
         android:ems="10"
         android:gravity="start|top"
         android:hint="username"
         android:inputType="textMultiLine"
-        android:background="@drawable/inputs"
-        android:padding="14dp"
-        android:drawableLeft="@drawable/username"
-        />
+        android:padding="14dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/setup_full_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        android:ems="10"
+        android:layout_below="@+id/setup_username"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/username"
+        android:ems="10"
         android:hint=" full name"
         android:inputType="textMultiLine"
-        android:background="@drawable/inputs"
-        android:padding="14dp"
-        android:drawableLeft="@drawable/username"/>
+        android:padding="14dp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/post_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/setup_full_name"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/country"
         android:ems="10"
         android:hint="country"
         android:inputType="textMultiLine"
-        android:background="@drawable/inputs"
-        android:padding="14dp"
-        android:drawableLeft="@drawable/country"/>
+        android:padding="14dp" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/setup_information_button"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="165dp"
-        android:layout_marginRight="165dp"
-        android:layout_marginBottom="86dp"
-        android:text="Save" />
+        android:layout_below="@+id/post_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button"
+        android:drawableLeft="@drawable/button"
+        android:padding="14dp"
+        android:text="save"
+        android:textColor="#FCF2F2"
+        android:textSize="20sp" />
+
 </RelativeLayout>

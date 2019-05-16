@@ -55,7 +55,7 @@
         android:layout_alignBottom="@+id/comment_input"
         android:layout_alignParentEnd="true"
         android:padding="15dp"
-        android:src="@drawable/post_comment"
+        android:src="@drawable/comment"
         android:layout_alignParentRight="true" />
 
 

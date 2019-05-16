@@ -9,16 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonProfileActivity"></activity>
-        <activity android:name=".ResetPasswordActivity"
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".PersonProfileActivity" />
+        <activity
+            android:name=".ResetPasswordActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".CommentsActivity" />
         <activity android:name=".FriendsActivity" />
-        <activity android:name=".FindFriendsActivity"
+        <activity
+            android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity" />
         <activity android:name=".ClickPostActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".SetupActivity" />
@@ -27,6 +28,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

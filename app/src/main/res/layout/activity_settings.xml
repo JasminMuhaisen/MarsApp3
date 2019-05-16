@@ -152,14 +152,6 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textAllCaps="false"/>
-
-
-
-
         </RelativeLayout>
     </ScrollView>
-
-
-
-
 </RelativeLayout>

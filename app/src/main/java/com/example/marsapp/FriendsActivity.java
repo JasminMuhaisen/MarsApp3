@@ -1,6 +1,9 @@
 package com.example.marsapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,6 +79,40 @@ public class FriendsActivity extends AppCompatActivity {
                             viewholder.setFullname(userName);
                             viewholder.setProfileimage(getApplicationContext(), profileImage);
 
+                            viewholder.mView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    CharSequence options[] = new CharSequence[]
+                                            {
+                                              userName + "'s Profile ",
+                                                    "Send massege"
+                                            };
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(FriendsActivity.this);
+                                    builder.setTitle("Select Option");
+
+                                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            if (which == 0)
+                                            {
+                                                Intent profileintent = new Intent(FriendsActivity.this,PersonProfileActivity.class);
+                                                profileintent.putExtra("visit_user_id",usersIDs);
+                                                startActivity(profileintent);
+                                            }
+
+                                            if (which == 1)
+                                            {
+                                                Intent chatintent = new Intent(FriendsActivity.this,ChatActivity.class);
+                                                chatintent.putExtra("visit_user_id",usersIDs);
+                                                chatintent.putExtra("userName",userName);
+                                                startActivity(chatintent);
+                                            }
+                                        }
+                                    });
+                                    builder.show();
+                                }
+                            });
                         }
                     }
 

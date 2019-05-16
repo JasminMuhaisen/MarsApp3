@@ -1,7 +1,10 @@
 package com.example.marsapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
     private CircleImageView userProfileImage;
     private DatabaseReference profileUserRef;
     private FirebaseAuth mAuth;
+    private Button MyPosts, MyFreinds;
     private String currentUserId;
 
     @Override
@@ -41,6 +45,24 @@ public class ProfileActivity extends AppCompatActivity {
         userRelation = findViewById(R.id.my_relationship_status);
         userDOB = findViewById(R.id.my_dob);
         userProfileImage = findViewById(R.id.my_profile_pic);
+        MyFreinds = findViewById(R.id.my_friends_button);
+        MyPosts = findViewById(R.id.my_post_button);
+
+        MyFreinds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendUserToFriendsActivity();
+            }
+        });
+
+        MyPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendUserToMyPostActivity();
+            }
+        });
+
+
 
         profileUserRef.addValueEventListener(new ValueEventListener()
         {
@@ -75,5 +97,16 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void SendUserToMyPostActivity() {
+        Intent myPostIntent = new Intent(ProfileActivity.this, MyPostActivity.class);
+        startActivity(myPostIntent);
+    }
+
+    private void SendUserToFriendsActivity()
+    {
+        Intent friendsIntent = new Intent(ProfileActivity.this, FriendsActivity.class);
+        startActivity(friendsIntent);
     }
 }

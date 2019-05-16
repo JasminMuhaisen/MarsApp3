@@ -350,5 +350,6 @@ public class PersonProfileActivity extends AppCompatActivity {
         DeclineFriendRequestbutton = findViewById(R.id.person_decline_friend_request);
         CURRENT_STATE = "not_friends";
 
+
     }
 }

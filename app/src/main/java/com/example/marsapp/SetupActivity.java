@@ -3,15 +3,12 @@ package com.example.marsapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.storage.StorageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.transition.CircularPropagation;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -63,7 +60,7 @@ public class SetupActivity extends AppCompatActivity
 
         UserName = (EditText) findViewById(R.id.setup_username);
         FullName = (EditText) findViewById(R.id.setup_full_name);
-        CountryName = (EditText) findViewById(R.id.setup_country_name);
+        CountryName = (EditText) findViewById(R.id.post_description);
         SaveInformationbuttion = (Button) findViewById(R.id.setup_information_button);
         ProfileImage = (CircleImageView) findViewById(R.id.setup_profile_image);
         loadingBar = new ProgressDialog(this);
@@ -221,7 +218,7 @@ public class SetupActivity extends AppCompatActivity
             userMap.put("username", username);
             userMap.put("fullname", fullname);
             userMap.put("country", country);
-            userMap.put("status", "Hey there, i am using Poster Social Network, developed by Coding Cafe.");
+            userMap.put("status", "Hey there, i am JSSH");
             userMap.put("gender", "none");
             userMap.put("dob", "none");
             userMap.put("relationshipstatus", "none");

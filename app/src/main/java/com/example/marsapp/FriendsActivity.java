@@ -17,7 +17,7 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        myFriendList = (RecyclerView)findViewById(R.id.friend_list);
+        myFriendList = findViewById(R.id.friend_list);
         myFriendList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(  this);
         linearLayoutManager.setReverseLayout (true);

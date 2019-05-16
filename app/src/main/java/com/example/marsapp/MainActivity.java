@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity
 
         public void setFullname(String fullname)
         {
-            TextView username = (TextView) mView.findViewById(R.id.post_user_name);
+            TextView username =  mView.findViewById(R.id.post_user_name);
             username.setText(fullname);
         }
 

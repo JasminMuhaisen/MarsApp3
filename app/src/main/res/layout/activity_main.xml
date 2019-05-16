@@ -45,7 +45,8 @@
             android:layout_marginRight="12dp"
             android:background="@color/colorPrimaryDark"
             android:baselineAlignBottom="false"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:layout_alignParentRight="true" />
 
 
     </RelativeLayout>

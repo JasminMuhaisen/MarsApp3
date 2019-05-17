@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +50,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String messageReciverID, messageReciverName, messageSenderID, saveCurrentdate, saveCurrentTime;
 
-    private TextView receiverName;
+    private TextView receiverName, userLastSeen;
     private CircleImageView receiverProfileImage;
     private DatabaseReference RootRef;
     private FirebaseAuth mAuth;
@@ -188,7 +190,7 @@ public class ChatActivity extends AppCompatActivity {
 
         private void intializeFields () {
 
-            Chattoolbar = findViewById(R.id.chat_bar_layout);
+            Chattoolbar = (Toolbar) findViewById(R.id.chat_bar_layout);
             setSupportActionBar(Chattoolbar);
 
             ActionBar actionBar = getSupportActionBar();
@@ -198,12 +200,15 @@ public class ChatActivity extends AppCompatActivity {
             View action_bar_view = layoutInflater.inflate(R.layout.chat_custom_bar, null);
             actionBar.setCustomView(action_bar_view);
 
+            receiverName = (TextView) findViewById(R.id.custom_profile_name);
+            userLastSeen = (TextView) findViewById(R.id.custom_user_last_seen);
+            receiverProfileImage = (CircleImageView) findViewById(R.id.custom_profile_image);
 
-            SendMessageButton = findViewById(R.id.send_message_button);
-            SendImagefileButton = findViewById(R.id.send_image_file_button);
-            userMessageInput = findViewById(R.id.input_message);
-            receiverName = findViewById(R.id.custom_profile_name);
-            receiverProfileImage = findViewById(R.id.custom_profile_image);
+
+            SendMessageButton =  (ImageButton) findViewById(R.id.send_message_button);
+            SendImagefileButton = (ImageButton) findViewById(R.id.send_image_file_button);
+            userMessageInput = (EditText) findViewById(R.id.input_message);
+
 
             messagesAdapter = new MessagesAdapter(messagesList);
             userMessagesList = findViewById(R.id.messages_list_users);

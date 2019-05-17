@@ -20,11 +20,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView userName, userProfName, userStatus, userCountry, userGender, userRelation, userDOB;
     private CircleImageView userProfileImage;
-    private DatabaseReference profileUserRef, FriendsRef;
+    private DatabaseReference profileUserRef, FriendsRef, PostsRef;
     private FirebaseAuth mAuth;
     private Button MyPosts, MyFreinds;
     private String currentUserId;
-    private int countFriends = 0;
+    private int countFriends = 0, countPosts=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
         profileUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("PostsRef");
 
 
 
@@ -63,6 +64,31 @@ public class ProfileActivity extends AppCompatActivity {
                 SendUserToMyPostActivity();
             }
         });
+
+        PostsRef.orderByChild("uid")
+                .startAt(currentUserId).endAt(currentUserId + "\uf8ff")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+                        if(dataSnapshot.exists())
+                        {
+                            countPosts = (int) dataSnapshot.getChildrenCount();
+                            MyPosts.setText(Integer.toString(countPosts) + "  Posts");
+
+                        }
+                        else
+                            {
+                                MyPosts.setText("0 Posts");
+
+                            }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
         FriendsRef.child(currentUserId).addValueEventListener(new ValueEventListener() {

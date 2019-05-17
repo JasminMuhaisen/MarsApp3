@@ -31,6 +31,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity
 
     String currentUserID;
     Boolean LikeChecker = false;
+    private int nav_find_friends;
 
 
     @Override
@@ -147,6 +153,29 @@ public class MainActivity extends AppCompatActivity
         DisplayAllUsersPosts();
     }
 
+    public void updateUserStatus(String state)
+    {
+
+        String saveCurrentDate, saveCurrentTime;
+
+        Calendar calForDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYY");
+        saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        Calendar calForTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm:ss a");
+        saveCurrentTime = currentTime.format(calForTime.getTime());
+
+        Map currentStateMap = new HashMap();
+
+        currentStateMap.put("time", saveCurrentTime);
+        currentStateMap.put("date", saveCurrentDate);
+        currentStateMap.put("type", state);
+
+        UsersRef.child(currentUserID).child("userState")
+                .updateChildren(currentStateMap);
+    }
+
 
 
     private void DisplayAllUsersPosts()
@@ -174,6 +203,7 @@ public class MainActivity extends AppCompatActivity
                         viewHolder.setDescription(model.getDescription());
                         viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+
                         viewHolder.setLikeButtonStatus(PostKey);
 
                         viewHolder.mView.setOnClickListener(new View.OnClickListener(){
@@ -231,6 +261,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
+        updateUserStatus("online");
     }
 
 
@@ -443,6 +474,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_logout:
+                updateUserStatus("offline");
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;

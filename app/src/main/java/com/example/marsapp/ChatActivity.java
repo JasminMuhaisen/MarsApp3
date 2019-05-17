@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,9 +50,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private String messageReciverID, messageReciverName, messageSenderID, saveCurrentdate, saveCurrentTime;
 
-    private TextView receiverName;
+    private TextView receiverName, userLastSeen;
     private CircleImageView receiverProfileImage;
-    private DatabaseReference RootRef;
+    private DatabaseReference RootRef, UserRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -62,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         messageSenderID = mAuth.getCurrentUser().getUid();
 
         RootRef = FirebaseDatabase.getInstance().getReference();
+        UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         messageReciverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReciverName = getIntent().getExtras().get("userName").toString();
@@ -117,8 +120,13 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void SendMessage() {
+    private void SendMessage()
+    {
+
+        updateUserStatus("online");
+
         String messageText = userMessageInput.getText().toString();
+
         if (TextUtils.isEmpty(messageText)) {
             Toast.makeText(this, "Please type a message first....", Toast.LENGTH_SHORT).show();
         } else {
@@ -166,6 +174,29 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    public void updateUserStatus(String state)
+    {
+
+        String saveCurrentDate, saveCurrentTime;
+
+        Calendar calForDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYY");
+        saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        Calendar calForTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm:ss a");
+        saveCurrentTime = currentTime.format(calForTime.getTime());
+
+        Map currentStateMap = new HashMap();
+
+        currentStateMap.put("time", saveCurrentTime);
+        currentStateMap.put("date", saveCurrentDate);
+        currentStateMap.put("type", state);
+
+        UserRef.child(messageSenderID).child("userState")
+                .updateChildren(currentStateMap);
+    }
+
         private void DisplayReceiverInfo () {
             receiverName.setText(messageReciverName);
 
@@ -174,6 +205,19 @@ public class ChatActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         final String profileImage = dataSnapshot.child("profileimage").getValue().toString();
+                        final String type = dataSnapshot.child("userState").child("type").getValue().toString();
+                        final String lastDate = dataSnapshot.child("userState").child("date").getValue().toString();
+                        final String lastTime = dataSnapshot.child("userState").child("time").getValue().toString();
+
+                        if(type.equals("online"))
+                        {
+
+                            userLastSeen.setText("online");
+                        }
+                        else
+                        {
+                            userLastSeen.setText("last seen: "+ lastTime + "  "+ lastDate);
+                        }
                         Picasso.with(ChatActivity.this).load(profileImage).placeholder(R.drawable.profile).into(receiverProfileImage);
 
                     }
@@ -188,7 +232,7 @@ public class ChatActivity extends AppCompatActivity {
 
         private void intializeFields () {
 
-            Chattoolbar = findViewById(R.id.chat_bar_layout);
+            Chattoolbar = (Toolbar) findViewById(R.id.chat_bar_layout);
             setSupportActionBar(Chattoolbar);
 
             ActionBar actionBar = getSupportActionBar();
@@ -198,12 +242,15 @@ public class ChatActivity extends AppCompatActivity {
             View action_bar_view = layoutInflater.inflate(R.layout.chat_custom_bar, null);
             actionBar.setCustomView(action_bar_view);
 
+            receiverName = (TextView) findViewById(R.id.custom_profile_name);
+            userLastSeen = (TextView) findViewById(R.id.custom_user_last_seen);
+            receiverProfileImage = (CircleImageView) findViewById(R.id.custom_profile_image);
 
-            SendMessageButton = findViewById(R.id.send_message_button);
-            SendImagefileButton = findViewById(R.id.send_image_file_button);
-            userMessageInput = findViewById(R.id.input_message);
-            receiverName = findViewById(R.id.custom_profile_name);
-            receiverProfileImage = findViewById(R.id.custom_profile_image);
+
+            SendMessageButton =  (ImageButton) findViewById(R.id.send_message_button);
+            SendImagefileButton = (ImageButton) findViewById(R.id.send_image_file_button);
+            userMessageInput = (EditText) findViewById(R.id.input_message);
+
 
             messagesAdapter = new MessagesAdapter(messagesList);
             userMessagesList = findViewById(R.id.messages_list_users);

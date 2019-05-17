@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
 
     String currentUserID;
     Boolean LikeChecker = false;
+    private int nav_find_friends;
 
 
     @Override
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity
                         viewHolder.setDescription(model.getDescription());
                         viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+
                         viewHolder.setLikeButtonStatus(PostKey);
 
                         viewHolder.mView.setOnClickListener(new View.OnClickListener(){

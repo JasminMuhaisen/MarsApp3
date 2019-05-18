@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
         String saveCurrentDate, saveCurrentTime;
 
         Calendar calForDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, YYY");
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyy");
         saveCurrentDate = currentDate.format(calForDate.getTime());
 
         Calendar calForTime = Calendar.getInstance();
